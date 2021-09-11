@@ -4,7 +4,6 @@
 package rand
 
 import (
-	"math"
 	"math/bits"
 	"runtime"
 	"sync/atomic"
@@ -14,7 +13,7 @@ import (
 
 // Int32 returns a tread-safe, non-cryptographic pseudorandom int32.
 func Int32() int32 {
-	return int32(xxhash32(uint32(next()), 0))
+	return int32(xxhash32(uint32(next()), 0) >> 1)
 }
 
 // Int31n returns, as an int32, a non-negative pseudo-random number in the half-open interval [0,n)
@@ -41,7 +40,7 @@ func Uint32n(maxN uint32) uint32 {
 
 // Int63 returns a non-negative pseudo-random 63-bit integer as an int64
 func Int63() int64 {
-	return int64(xxhash64(next(), 0))
+	return int64(xxhash64(next(), 0) >> 1)
 }
 
 // Int63n returns, as an int64, a non-negative pseudo-random number in the half-open interval [0,n). It panics if n <= 0.
@@ -84,12 +83,22 @@ func Bool() bool {
 
 // Float32 returns, as a float32, a pseudo-random number in [0.0,1.0)
 func Float32() float32 {
-	return math.Float32frombits(Uint32()) / (1 << 31)
+again: // Source: math/rand. Copyright 2009 The Go Authors.
+	f := float32(Float64())
+	if f == 1 {
+		goto again
+	}
+	return f
 }
 
-// Float64 returns, as a float64, a pseudo-random number in [0.0,1.0)
+// Float64 returns, as a float64, a pseudo-random number in the half-open interval [0.0,1.0).
 func Float64() float64 {
-	return math.Float64frombits(Uint64()) / (1 << 63)
+again: // Source: math/rand. Copyright 2009 The Go Authors.
+	f := float64(Int63()) / (1 << 63)
+	if f == 1 {
+		goto again
+	}
+	return f
 }
 
 // --------------------------------- Hashing ---------------------------------

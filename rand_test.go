@@ -94,8 +94,9 @@ func TestInt32(t *testing.T) {
 	m := make(map[int32]struct{})
 	for i := 0; i < 1e3; i++ {
 		n := Int32()
+		assert.GreaterOrEqual(t, n, int32(0))
 		if _, ok := m[n]; ok {
-			t.Fatalf("number %v already exists", n)
+			assert.Fail(t, "number %v already exists", n)
 		}
 		m[n] = struct{}{}
 	}
@@ -105,8 +106,9 @@ func TestInt63(t *testing.T) {
 	m := make(map[int64]struct{})
 	for i := 0; i < 1e3; i++ {
 		n := Int63()
+		assert.GreaterOrEqual(t, n, int64(0))
 		if _, ok := m[n]; ok {
-			t.Fatalf("number %v already exists", n)
+			assert.Fail(t, "number %v already exists", n)
 		}
 		m[n] = struct{}{}
 	}
@@ -117,7 +119,7 @@ func TestUint32(t *testing.T) {
 	for i := 0; i < 1e3; i++ {
 		n := Uint32()
 		if _, ok := m[n]; ok {
-			t.Fatalf("number %v already exists", n)
+			assert.Fail(t, "number %v already exists", n)
 		}
 		m[n] = struct{}{}
 	}
@@ -128,7 +130,7 @@ func TestUint64(t *testing.T) {
 	for i := 0; i < 1e3; i++ {
 		n := Uint64()
 		if _, ok := m[n]; ok {
-			t.Fatalf("number %v already exists", n)
+			assert.Fail(t, "number %v already exists", n)
 		}
 		m[n] = struct{}{}
 	}
@@ -148,11 +150,11 @@ func TestBool(t *testing.T) {
 }
 
 func TestFloat32(t *testing.T) {
-	assert.NotZero(t, Float32())
-	assert.NotZero(t, Float32())
+	assert.GreaterOrEqual(t, Float32(), float32(0))
+	assert.Less(t, Float32(), float32(1))
 }
 
 func TestFloat64(t *testing.T) {
-	assert.NotZero(t, Float64())
-	assert.NotZero(t, Float64())
+	assert.GreaterOrEqual(t, Float64(), 0.0)
+	assert.Less(t, Float64(), 1.0)
 }
