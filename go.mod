@@ -1,4 +1,4 @@
-module github.com/kelindar/rand
+module github.com/kelindar/xxrand
 
 go 1.17
 

@@ -1,7 +1,7 @@
-// Package rand implements fast pesudorandom number generator that should scale well on multi-CPU systems.
-// Use crypto/rand instead of this package for generating cryptographically
-// secure random numbers.
-package rand
+// Copyright (c) Roman Atachiants and contributors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+
+package xxrand
 
 import (
 	"math/bits"
