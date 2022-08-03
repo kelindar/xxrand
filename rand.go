@@ -5,7 +5,6 @@ package xxrand
 
 import (
 	"math/bits"
-	"sync/atomic"
 )
 
 // --------------------------------- 32-bit integers ---------------------------------
@@ -101,25 +100,6 @@ again: // Source: math/rand. Copyright 2009 The Go Authors.
 }
 
 // --------------------------------- Hashing ---------------------------------
-
-// Next returns the next epoch for the random, when called without an explicit
-// epoch provided. This one simply reads a time stamp counter if available and
-// uses it as the epoch.
-var next func() uint64
-var epoch uint64
-
-// genericNext provides a cross-platform implementation, but uses atomic counter instead.
-func genericNext() uint64 {
-	return atomic.AddUint64(&epoch, 1)
-}
-
-func init() {
-	next = genericNext
-	if havex64tsc {
-		next = x64tsc
-	}
-}
-
 // The unrolled xxhash that hashes the input uint32. It produces the exact same output
 // as xxh3, which has a good overall distribution and a passing chi2 test.
 func xxhash32(v, seed uint32) uint32 {
