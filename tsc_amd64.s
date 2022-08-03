@@ -1,7 +1,7 @@
 #include "textflag.h"
 
-// func x64tsc() uint64
-TEXT ·x64tsc(SB),NOSPLIT,$0-8
+// func next() uint64
+TEXT ·next(SB),NOSPLIT,$0-8
 	MFENCE
 	LFENCE
 	RDTSCP

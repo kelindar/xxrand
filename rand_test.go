@@ -63,7 +63,6 @@ func TestBinary(t *testing.T) {
 
 func TestNext(t *testing.T) {
 	assert.Greater(t, int(next()), 0)
-	assert.Greater(t, int(genericNext()), 0)
 }
 
 func TestIntn(t *testing.T) {
