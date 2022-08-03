@@ -103,9 +103,6 @@ again: // Source: math/rand. Copyright 2009 The Go Authors.
 
 // --------------------------------- Hashing ---------------------------------
 
-// https://stackoverflow.com/questions/27693145/rdtscp-versus-rdtsc-cpuid
-func x64tsc() uint64
-
 // Next returns the next epoch for the random, when called without an explicit
 // epoch provided. This one simply reads a time stamp counter if available and
 // uses it as the epoch.
@@ -119,7 +116,7 @@ func genericNext() uint64 {
 
 func init() {
 	next = genericNext
-	if runtime.GOARCH == "amd64" {
+	if havex64tsc && runtime.GOARCH == "amd64" {
 		next = x64tsc
 	}
 }
