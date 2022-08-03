@@ -5,7 +5,6 @@ package xxrand
 
 import (
 	"math/bits"
-	"runtime"
 	"sync/atomic"
 )
 
@@ -116,7 +115,7 @@ func genericNext() uint64 {
 
 func init() {
 	next = genericNext
-	if havex64tsc && runtime.GOARCH == "amd64" {
+	if havex64tsc {
 		next = x64tsc
 	}
 }
