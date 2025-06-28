@@ -1,6 +1,6 @@
 
 <p align="center">
-<img width="330" height="110" src=".github/logo.png" border="0" alt="kelindar/xxrand">
+<img width="300" height="100" src=".github/logo.png" border="0" alt="kelindar/xxrand">
 <br>
 <img src="https://img.shields.io/github/go-mod/go-version/kelindar/xxrand" alt="Go Version">
 <a href="https://pkg.go.dev/github.com/kelindar/xxrand"><img src="https://pkg.go.dev/badge/github.com/kelindar/xxrand" alt="PkgGoDev"></a>
@@ -11,13 +11,15 @@
 
 # XXH3-Based Pseudorandom Number Generator 
 
+> ⚠️ **Obsolete:** Since the release of **math/rand/v2, this package is no longer recommended** for production use, as Go runtime provides a faster and better alternative.
+
 This package contains an experimental implementation of a [noise based pseudorandom number generator](https://www.youtube.com/watch?v=LWFzPP8ZbdU) that scales with multiple CPUs and from my benchmarks around 10x faster than using `math.Rand`. It uses [xx3](https://github.com/zeebo/xxh3) algorithm to hash a counter, the default counter being the time stamp counter (using `RDTSC` instruction). That being said, most of use-cases probably are better of with using `math.Rand` since it should provide better randomness characteristics.
 
 ## Features
 
  * Optimized to **scale on multiple CPUs** when called without the state (e.g. `Int31n()`).
  * Supports most of **math/rand** functions.
- * Roughly **10x** faster than `math/rand` equivalent.
+ * At the time of release, was roughly **10x** faster than `math/rand` equivalent. In the current version, no longer needed.
 
 ## What is this for?
 
